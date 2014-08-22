@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+__maintainer__ = "Sergey Valiev"
+__version__ = '0.1.0'
+
+import os
+import sys
+import argparse
+
+def join(config, *args):
+    return os.path.join(config.cache_dir, *args)
+
+def get_cache(config):
+    filename = join(config, '1')
+    with open(filename) as fp:
+        for line in fp:
+            print line,
+
+
+def create_cache(config):
+    from tempfile import NamedTemporaryFile as TempFile
+    from fileinput import input
+    tempfile = TempFile(delete = False)
+    for line in input():
+        tempfile.write(line)
+    os.rename(tempfile.name, join(config, '1'))
+
+def prepare(config):
+    if not os.path.exists(config.cache_dir):
+        os.makedirs(config.cache_dir)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-c', '--cache-dir', help="ASD", default='~/.cache')
+    config = parser.parse_args()
+    prepare(config)
+
+    is_stdin = not sys.stdin.isatty()
+    if is_stdin:
+        create_cache(config)
+    else:
+        get_cache(config)
