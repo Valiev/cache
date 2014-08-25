@@ -7,20 +7,21 @@ import argparse
 def join(config, *args):
     return os.path.join(config.cache_dir, *args)
 
+def get_cache_filename(config):
+    return join(config, config.name)
+
 def get_cache(config):
-    filename = join(config, '1')
+    filename = get_cache_filename(config)
     with open(filename) as fp:
         for line in fp:
             print line,
 
-
 def create_cache(config):
     from tempfile import NamedTemporaryFile as TempFile
-    from fileinput import input
     tempfile = TempFile(delete = False)
-    for line in input():
+    for line in sys.stdin:
         tempfile.write(line)
-    os.rename(tempfile.name, join(config, '1'))
+    os.rename(tempfile.name, get_cache_filename(config))
 
 def prepare(config):
     # expand cache dirs like: ~/.cache
@@ -31,8 +32,12 @@ def prepare(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
+        prog="cache",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', '--cache-dir', help="Folder to store cached stdout", default='~/.cache')
+    parser.add_argument('-c', '--cache-dir', default='~/.cache',
+        help="Folder to store cached stdout")
+    parser.add_argument('name', nargs='?', default='1',
+        help="Name of cached file to work with")
     config = parser.parse_args()
     prepare(config)
 
