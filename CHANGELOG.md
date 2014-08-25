@@ -1,3 +1,7 @@
+## v0.3.0
+
+* Added support to work with filenames to store cache
+
 ## v0.2.2
 
 * Expand cache dir path (e.g. `~/.cache`)
