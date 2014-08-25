@@ -23,8 +23,11 @@ def create_cache(config):
     os.rename(tempfile.name, join(config, '1'))
 
 def prepare(config):
-    if not os.path.exists(config.cache_dir):
-        os.makedirs(config.cache_dir)
+    # expand cache dirs like: ~/.cache
+    cache_dir = os.path.expanduser(config.cache_dir)
+    config.cache_dir = cache_dir
+    if not os.path.exists(cache_dir):
+        os.makedirs(cache_dir)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
