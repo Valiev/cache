@@ -32,7 +32,7 @@ def prepare(config):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', '--cache-dir', help="ASD", default='~/.cache')
+    parser.add_argument('-c', '--cache-dir', help="Folder to store cached stdout", default='~/.cache')
     config = parser.parse_args()
     prepare(config)
 
