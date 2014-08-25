@@ -1,3 +1,7 @@
+## v0.2.1
+
+* Removed long description to make module installable
+
 ## v0.2.0
 
 * configuration for PIP
