@@ -21,6 +21,7 @@ def create_cache(config):
     tempfile = TempFile(delete = False)
     for line in sys.stdin:
         tempfile.write(line)
+        print line,
     os.rename(tempfile.name, get_cache_filename(config))
 
 def prepare(config):
