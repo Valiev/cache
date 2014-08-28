@@ -31,6 +31,12 @@ def prepare(config):
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
 
+def list_caches(config):
+    for entry in os.listdir(config.cache_dir):
+        path = join(config, entry)
+        if os.path.isfile(path):
+            print entry
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="cache",
@@ -39,8 +45,14 @@ if __name__ == "__main__":
         help="Folder to store cached stdout")
     parser.add_argument('name', nargs='?', default='1',
         help="Name of cached file to work with")
+    parser.add_argument('-l', '--list', action='store_true',
+        help="List existing caches")
     config = parser.parse_args()
     prepare(config)
+
+    if config.list:
+        list_caches(config)
+        sys.exit(0)
 
     is_stdin = not sys.stdin.isatty()
     if is_stdin:
