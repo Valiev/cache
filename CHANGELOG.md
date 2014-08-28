@@ -1,3 +1,7 @@
+## v0.5.0
+
+* List existing caches with `-l` or  `--list`
+
 ## v0.4.0
 
 * Don't suppress data while caching
