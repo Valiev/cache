@@ -41,7 +41,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="cache",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', '--cache-dir', default='~/.cache',
+    parser.add_argument('-c', '--cache-dir', default='~/.cache/stdout',
         help="Folder to store cached stdout")
     parser.add_argument('name', nargs='?', default='1',
         help="Name of cached file to work with")
