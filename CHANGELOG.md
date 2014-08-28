@@ -1,3 +1,7 @@
+## v0.5.1
+
+* Default cache dir moved to `~/.cache/stdout`
+
 ## v0.5.0
 
 * List existing caches with `-l` or  `--list`

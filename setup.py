@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='cache-stdout',
-    version='0.5.0',
+    version='0.5.1',
     description='Command-line utility to store output and reuse it later',
     author='Sergey Valiev',
     author_email='svaliev@gmail.com',
