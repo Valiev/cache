@@ -1,3 +1,9 @@
+## v0.5.2
+
+* More PEP8 to script
+* Hadnling error situtaion with internal exceptions
+* Warnings
+
 ## v0.5.1
 
 * Default cache dir moved to `~/.cache/stdout`
