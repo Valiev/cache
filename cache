@@ -9,6 +9,10 @@ class CacheException(Exception):
     pass
 
 
+def warning(msg):
+    print >> sys.stderr, msg
+
+
 def join(config, *args):
     return os.path.join(config.cache_dir, *args)
 
@@ -92,5 +96,5 @@ if __name__ == "__main__":
     try:
         manage(config)
     except CacheException, e:
-        print >> sys.stderr, "Something went wrong:", str(e)
+        warning("Something went wrong: %s" % e)
         sys.exit(1)
