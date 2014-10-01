@@ -5,6 +5,10 @@ import sys
 import argparse
 
 
+class CacheException(Exception):
+    pass
+
+
 def join(config, *args):
     return os.path.join(config.cache_dir, *args)
 
@@ -51,17 +55,7 @@ def print_caches(config):
         print entry
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        prog="cache",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', '--cache-dir', default='~/.cache/stdout',
-                        help="Folder to store cached stdout")
-    parser.add_argument('name', nargs='?', default='1',
-                        help="Name of cached file to work with")
-    parser.add_argument('-l', '--list', action='store_true',
-                        help="List existing caches")
-    config = parser.parse_args()
+def manage(config):
     prepare(config)
 
     if config.list:
@@ -73,3 +67,22 @@ if __name__ == "__main__":
         create_cache(config)
     else:
         get_cache(config)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog="cache",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-c', '--cache-dir', default='~/.cache/stdout',
+                        help="Folder to store cached stdout")
+    parser.add_argument('name', nargs='?', default='1',
+                        help="Name of cached file to work with")
+    parser.add_argument('-l', '--list', action='store_true',
+                        help="List existing caches")
+    config = parser.parse_args()
+
+    try:
+        manage(config)
+    except CacheException, e:
+        print >> sys.stderr, "Something went wrong:", str(e)
+        sys.exit(1)
