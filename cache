@@ -38,10 +38,18 @@ def prepare(config):
 
 
 def list_caches(config):
+    caches = []
     for entry in os.listdir(config.cache_dir):
         path = join(config, entry)
         if os.path.isfile(path):
-            print entry
+            caches.append(entry)
+    return caches
+
+
+def print_caches(config):
+    for entry in list_caches(config):
+        print entry
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -57,7 +65,7 @@ if __name__ == "__main__":
     prepare(config)
 
     if config.list:
-        list_caches(config)
+        print_caches(config)
         sys.exit(0)
 
     is_stdin = not sys.stdin.isatty()
