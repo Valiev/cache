@@ -17,7 +17,15 @@ def get_cache_filename(config):
     return join(config, config.name)
 
 
+def cache_exists(config):
+    return config.name in list_caches(config)
+
+
 def get_cache(config):
+    if not cache_exists(config):
+        msg = "Couldn't find %s cache file" % config.name
+        raise CacheException(msg)
+
     filename = get_cache_filename(config)
     with open(filename) as fp:
         for line in fp:
