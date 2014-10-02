@@ -1,3 +1,7 @@
+## v0.6.0
+
+* `cache -d NAME` to delete existing cache
+
 ## v0.5.2
 
 * More PEP8 to script
