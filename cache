@@ -67,12 +67,25 @@ def print_caches(config):
         print entry
 
 
+def delete_cache(config):
+    if not cache_exists(config):
+        warning("Could find cached file")
+
+    filename = get_cache_filename(config)
+    os.unlink(filename)
+
+
 def manage(config):
     prepare(config)
 
     if config.list:
         print_caches(config)
-        sys.exit(0)
+        return
+
+    delete_name = config.delete
+    if delete_name:
+        delete_cache(config)
+        return
 
     is_stdin = not sys.stdin.isatty()
     if is_stdin:
@@ -91,6 +104,8 @@ if __name__ == "__main__":
                         help="Name of cached file to work with")
     parser.add_argument('-l', '--list', action='store_true',
                         help="List existing caches")
+    parser.add_argument('-d', '--delete', action="store", default="",
+                        help="Delete existing cache", metavar="NAME")
     config = parser.parse_args()
 
     try:
